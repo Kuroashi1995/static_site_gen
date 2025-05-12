@@ -41,7 +41,7 @@ def main():
     if len(sys.argv) >= 2:
         basepath = sys.argv[1]
     else:
-        basepath = ""
+        basepath = "/"
     static_to_public("static", True)
     generate_pages_recursive("content", "template.html", "docs", basepath)
 

@@ -4,12 +4,13 @@ from generation_helpers import generate_page, generate_pages_recursive
 import os
 import re
 import shutil
+import sys
 
 def static_to_public(path:str, first_run: bool):
     #get cwd
     cwd = os.path.abspath(os.getcwd())
     #generate public path
-    public_path = os.path.join(cwd, "public")
+    public_path = os.path.join(cwd, "docs")
     # delete public content
     if first_run:
         print("deleting public dir")
@@ -33,10 +34,15 @@ def static_to_public(path:str, first_run: bool):
             static_to_public(os.path.join(path_to_analyze, entry), False)
         else:
             print(f"copying file {entry}")
-            shutil.copy(os.path.join(path_to_analyze, entry), re.sub(r"\/static(?:$|\/)", "/public/", path_to_analyze))
+            shutil.copy(os.path.join(path_to_analyze, entry), re.sub(r"\/static(?:$|\/)", "/docs/", path_to_analyze))
 
 def main():
-    static_to_public("static", True)
-    generate_pages_recursive("content", "template.html", "public")
+    print(sys.argv)
+    if len(sys.argv) >= 2:
+        basepath = sys.argv[1]
+    else:
+        basepath = ""
+    static_to_public(f"{basepath}static", True)
+    generate_pages_recursive(f"{basepath}content", f"{basepath}template.html", f"{basepath}docs", basepath)
 
 main()

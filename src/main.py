@@ -42,7 +42,7 @@ def main():
         basepath = sys.argv[1]
     else:
         basepath = ""
-    static_to_public(f"{basepath}static", True)
-    generate_pages_recursive(f"{basepath}content", f"{basepath}template.html", f"{basepath}docs", basepath)
+    static_to_public("static", True)
+    generate_pages_recursive("content", "template.html", "docs", basepath)
 
 main()

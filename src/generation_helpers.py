@@ -18,7 +18,7 @@ def generate_page(from_path: str, template_path: str, dest_path, basepath: str):
     # Get html string from md
     html_string = markdown_to_html_node(md).to_html()
     title = extract_title(md)
-    new_template = template.replace("{{ Title }}", title).replace("{{ Content }}", html_string).replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
+    new_template = template.replace("{{ Title }}", title).replace("{{ Content }}", html_string).replace('href="/', f'href="{basepath}/').replace('src="/', f'src="{basepath}/')
     if not os.path.exists(abs_dest_path.replace("/index.html","")):
         print("Creating destination path")
         os.mkdir(abs_dest_path)
